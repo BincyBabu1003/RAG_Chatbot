@@ -1,0 +1,1679 @@
+Degree project 
+Defect Detection in Betaguard Yellow Sealing of 
+Volvo Car Battery Lids Using Advanced Computer 
+Vision and Deep Learning Techniques 
+Master Degree Project in Informatics with 
+a specialization in Data Science 
+Second Cycle 30 credits 
+Spring term Year 2024 
+Student: Bincy Babu 
+Supervisor: Gunnar Mathiason 
+Examiner: Alexander Karlsson 
+c21binba  
+Abstract 
+Defect detection in sealing processes is so necessary for guaranteeing product quality and 
+safety across several industries. Traditional defect detection techniques frequently rely on 
+subjective and manual inspection methods that leads to limitations in accuracy and efficiency. 
+This project focusses mainly on these challenges by developing an automated defect detection 
+system using machine learning techniques. 
+The primary objective is to improve upon the basic standards that are already established by 
+traditional methods that helps in enhancing the effectiveness and accuracy of defect 
+identification in sealing processes. The proposed system utilises deep learning algorithms, 
+including convolutional neural networks (CNNs) and other advanced architectures available 
+as of now, to detect sealing defects such as cracks, uneven surfaces, and improper seals. 
+The methodology of the project consists of the following key steps that includes data collection, 
+pre-processing, model training, validation, and testing. Performance metrics such as detection 
+accuracy, false positive rate, and processing time are also used to effectively assess the 
+productivity of the automated system. 
+The results exhibit significant improvements over the basic standard, with the automated 
+system attaining higher accuracy and efficiency in defect detection compared to traditional 
+methods. Statistical analysis endorses the practical significance of these improvements, 
+focussing on the potential of machine learning techniques to increase the quality of defect 
+detection in sealing processes. 
+Overall, this project donates to the advancement of industrial sealing techniques, leading to 
+improvements in product quality and safety. By providing a general overview of the project's 
+background, methodology, and outcomes, this report aims to highlight the impact of using 
+machine learning for defect detection in sealing processes. 
+Keywords: Machine Learning, Deep Learning, Computer Vision, Defect 
+Detection, Classification 
+ 
+c21binba 
+2 | Defect  Detection 
+ 
+Table of Contents 
+1. Introduction………………………………………………………………………….…………04 
+1.1. Problem Definition…………………………………………………….…………….......................04 
+1.2. Research Objectives……………………………………………………………………………………..08 
+2. Background………………………………………………………..……………………………10 
+2.1. Preliminaries …………………………………………………..……………………………………..….10 
+2.1.1   Defect Detection in Manufacturing………………………………………………………10 
+2.1.2   Feature extraction………………………………………………………………………………11 
+2.1.3   Deep learning…………………………………………………………………………………….13 
+2.2. Research Background……………………………………………..…………………..………..…….14 
+2.2.1   Defect Detection in Manufacturing……………….……………………………………..14 
+2.2.2   Image Processing Techniques……………………………………………………………..15 
+2.2.3   Machine Learning for Defect Detection………………………………………………..16 
+3. Method……………………………………………………………………………….…………..17  
+3.1. Data Acquisition ………………….. ……………………………………………………………….…..18 
+3.2. Pre-processing ……………..…………………….……………………………………………….……..18 
+3.3. Feature Extraction …………….……………….………………………………………………….……19 
+3.4. Model Development …………………………………….…………………….………………….……20 
+3.5. Validation …….………………….……………….…………………………………………………..……21 
+3.6. Collaboration and Feedback……………………………………………………………………..…..21 
+4. Implementation……………………………………………………………………………….22 
+4.1. Dataset …………………………………….. ……………………………………………………………...22 
+4.2. Pre-processing ……………………. ……………………………………………………………..….….23 
+4.3. Feature Extraction…………………………………………………….. …………………………….…24 
+4.4. Model Development ...……………………………..…..…………………………..………..…..…...27 
+4.4.1. Convolutional Neural Networks (CNNs)…………………….………………..…..….28 
+4.4.2. Visual Geometry Group (VGG)16……….………………..…………..………….….….28 
+4.5. Training and Optimization ...…………………..………..…..…………………………....……….29 
+4.6. Model Evaluation …………………………..………….. ……………….…………………….…….…30 
+5. Results……………………………………………………………………………………….……31 
+5.1. Baseline Benchmark CNN model………………………….…….……………………………..….31 
+ 
+c21binba 
+3 | Defect  Detection 
+ 
+5.2. Convolutional Neural Networks. ………………………………………..…………..…………… 35 
+5.3. VGG 16 …………………………………………………………………..……………………………....…38 
+6. Discussions …………………………………………………………………………………….44 
+6.1. Theoretical framework ……………………………….……….………………………………………44 
+6.2. Methods, implementation and results. …………………………………………..……………..44 
+6.3. Ethical and societal aspects ……………………………………………………………………….…47 
+6.3.1 Ethical Considerations………………………………………….………………………………47 
+6.3.2 Societal Implications………………………………………….………………………………..47 
+7. Conclusion………………………………………………………………….……………….…..48 
+7.1. Future work……………………………………………………………………………………….…..……48 
+ 
+References…………………………………………………..……………………………………….49 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+c21binba 
+1. Introduction 
+In modern manufacturing, preserving the quality and reliability of products is of primary 
+importance. Defect detection plays a grave role in this process, helping as a fundamental step 
+in retaining product standards, minimizing waste, and enhancing overall efficiency. The rise 
+of automation and advanced imaging techniques has transformed how manufacturers identify 
+and address defects, switching from manual inspections to more sophisticated, automated 
+systems. These systems not only enhance the accuracy and speed of defect detection but also 
+help in preserving consistent quality across large-scale production [1]. 
+In industries such as automotive manufacturing, where precision and safety are non
+negotiable, the prominence of defect detection is even more vibrant. Components such as 
+battery lids, which are decisive to the functionality and safety of electric vehicles, require 
+demanding inspection to ensure that they meet high standards. A defect in such a critical 
+component could lead to substantial operational failures or safety hazards, creating reliable 
+detection systems essential [2]. 
+Current progress in deep learning, especially with Convolutional Neural Networks (CNNs), has 
+made it much easier to automatically detect defects [3]. CNNs, with their ability to learn 
+hierarchical representations of visual data, have been broadly adopted in image classification 
+and object detection tasks [3]. Among the various CNN architectures, VGG16 has arose as a 
+powerful model due to its deep architecture and solid feature extraction capabilities [4]. 
+VGG16's ability to capture fine details in images makes it primarily appropriate for detecting 
+subtle defects in manufacturing components. 
+This study focuses around the application of CNNs, specifically the VGG16 architecture, for 
+detecting defects in Volvo's battery lids. By leveraging VGG16, the research aims to develop an 
+automated system capable of identifying defects such as cracks, uneven seals, and seal overflow 
+with high level accuracy. The implementation of these technologies in the manufacturing 
+process not only assures to augment the quality control mechanisms at Volvo but also 
+characterises a significant advancement in the broader field of automated defect detection. 
+The scope of this study includes the development, implementation, and evaluation of a defect 
+detection system personalised for Volvo's specific needs. This contains the collection and pre
+processing of image data, the design and training of the VGG16 model, and the integration of 
+the model into a practical system for real-time defect detection. The uniqueness and 
+significance of this research lies in its potential to improve the reliability of battery lids, thereby 
+contributing to the safety and performance of Volvo's electric vehicles. 
+1.1     Problem Definition 
+Growing Demand for EVs and Safety Concerns 
+The transformation being forced onto the automobile evolution by moving to electrification. 
+This movement has made a boom in the demand for electric cars (EVs), thereby hovering alarm 
+over quality control of every system in EV including battery systems which are primarily 
+responsible to deliver power at lightning speed, but also have trace amounts of toxic chemicals 
+even though ensuring sustainable processes. As a result, this kind of systems plays a key role 
+in the electric vehicle operation and safety. This promise to quality and safety is evident in all 
+4 | Defect  Detection 
+c21binba 
+Volvo Cars. The organization is a pioneer in sustainability and automotive advancements. Part 
+of this responsibility is clearly seen in its continued advancement and inception of cutting-edge 
+technology which further automates dependable lines for production efficiency while also 
+reducing the likelihoods that materials with defects are available to markets. For example, an 
+automated system had been established for identifying and categorizing faults in battery lids—
+a vibrant part of ensuring the safety and efficiency of EVs [23]. 
+BetaGuard Sealing Compound by Volvo Cars 
+BetaGuard, a Volvo Cars sealing compound for electrical connection. The compound is 
+essential mainly because it will help hold off corrosion and make certain the longevity of 
+electrical items, exclusively parts such as battery terminals and connectors. BetaGuard is an 
+example of how Volvo uses innovative technologies to make its cars last and succeed in the 
+toughest operating conditions, where vehicles are vulnerable to humidity as well as salt from 
+roads – one of nature´s most hostile corrosion forces. BetaGuard also does a good job of 
+guarding these vital influences, which helps confirm the longevity and performance of vehicle 
+electrical systems [22]. 
+Defects such as large width, irregular shapes and surfaces or chipping can compromise 
+BetaGuard's sealing efficacy. These defects might allow moisture, dirt or different pollutants 
+into electrical connections and cause corrosion, electric malfunctioning problems or even 
+worse in the automobile. Thus, it is important to identify the exact defects in order that such 
+faults can be detected and lead to a permanent electrical system operational safety of vehicle 
+[23]. 
+Common Issues with BetaGuard Application 
+1. Insufficient Coverage Uneven or incomplete application of the sealing compound can 
+leave areas open to moisture and contaminants. 
+2. Cracking Over time, the sealing compound may degrade or crack due to exposure to 
+fluctuating temperatures, vibrations, and environmental factors, probably leading to 
+leaks or breaches. 
+3. Adhesion Issues Improper elimination of excess sealing material can affect with the 
+bonding process, diminishing the seal's effectiveness. 
+4. Seal Overflow Excess material outside the intended area may result in improper 
+sealing, leading to potential chemical reactions, degradation, and compromised sealing 
+effectiveness. 
+5. Uneven Sealing Incorrect application techniques can end in air bubbles which in turn 
+affects the detection 
+Insufficient Coverage 
+If the sealing compound is 
+not applied equally 
+throughout, there could 
+be gaps or areas that are 
+at risk from moisture and 
+pollutants. 
+5 | Defect  Detection 
+ 
+c21binba 
+6 | Defect  Detection 
+ 
+Cracking Over time, 
+sealing compounds can 
+crack due to exposure to 
+temperature variations, 
+vibrations, and 
+environmental factors, 
+may result in leaks or 
+breaches  
+  
+Adhesion Issues The 
+sealing is not wiped off 
+properly, it can interfere 
+with the adhesion process 
+and compromise the bond 
+power between the 
+surfaces being sealed. 
+  
+Improper  Application 
+Seal Overflow 
+Sealing compounds must 
+be compatible with the 
+materials they are 
+functional to. 
+Incompatibility can lead 
+to chemical reactions 
+ 
+ 
+Uneven sealing 
+Incorrect application 
+techniques or conditions 
+during the application 
+process can end in defects 
+such as uneven coverage, 
+air bubbles affecting the 
+reliability of the seal. 
+ 
+ 
+Fig 1. Various Defects in Betaguard sealing 
+In the perspective of industrial manufacturing, mainly in the sealing processes used in the 
+automotive industry, ensuring consistent and reliable quality is supreme for both product 
+safety and performance. Traditional methods for detecting defects, such as manual inspection 
+and rule-based systems, have substantial drawbacks. Manual inspection, which trusts heavily 
+on human operators, is basically subjective, labour-intensive, and time-consuming. This 
+c21binba 
+subjectivity can lead to inconsistencies, and in case of high-volume manufacturing 
+environments, even minor defects or irregularities can be easily missed during visual 
+inspections [5]. 
+Rule-based systems, even though offering a more structured approach than manual inspection, 
+frequently fail to adapt to variations in the sealing process or changing environmental 
+conditions. These systems can struggle to effectively handle the dynamic nature of 
+manufacturing processes, where factors such as material variations, machine wear, and 
+environmental impacts can lead to defects that do not follow to predefined rules [6]. 
+This project pursues to address these limitations by developing an automated defect detection 
+system specifically custom-made to the battery lid sealing processes at Volvo Cars. By 
+leveraging advancements in computer vision and machine learning, especially Convolutional 
+Neural Networks (CNNs) and the VGG16 architecture, the proposed system aims to analyse 
+images and video footage in real-time to detect and classify defects such as cracks, uneven 
+surfaces, and seal overflows [3]. The integration of these technologies aptitudes to expressively 
+improve the accuracy and efficiency of the defect detection process, eventually improving the 
+overall quality control in the manufacturing line. 
+Importance of a Balanced Dataset 
+The dataset used in this project is meticulously balanced, with 400 images per defect class. 
+This balance is crucial for several reasons: 
+●    Equal Representation: A balanced dataset confirms that the model does not become 
+biased towards any particular defect type, which is critical for accomplishing consistent 
+and reliable performance across all classes. 
+●    Model Generalization: With equal representation of each defect class, the model can 
+accurately detect and classify all types of defects in various scenarios without favouring 
+one class over another. 
+Key Challenges 
+1. Environmental Variability: The sealing process is subject to changes in the 
+manufacturing environment, such as variable lighting conditions, which can affect the 
+intensity of shadows on the sealing portion. These fluctuations can obscure defects and 
+must be accounted for in the system’s design. 
+2. Background Noise: The live camera setup may accidentally capture additional objects 
+in the background, introducing noise that can disturb with defect detection. Robust 
+image pre-processing techniques are necessary to isolate the battery lid sealing from 
+irrelevant background details. 
+3. Obstruction Issues: At times, the sealing application machinery may hinder the view of 
+the battery lid, resulting in images that are not suitable for analysis. These obstructed 
+images need to be identified and excluded from the dataset to prevent inaccurate model 
+training. 
+4. Lack of Defect Data: There is a limited availability of images portraying actual defects, 
+which poses a challenge for training the machine learning models. The project involves 
+manually extracting and labelling images from video files to create a comprehensive 
+dataset for training. 
+7 | Defect  Detection 
+c21binba 
+1.2     
+Research Objectives 
+The primary objective of this thesis project is to design and implement a full-fledged functional 
+system for the detection and classification of defects in Volvo Cars' battery lids. The project is 
+mainly focused on accomplishing the following goals: 
+●  Develop a Comprehensive Dataset: Create a dataset of images that captures a wide 
+range of defects in battery lids, containing cracks, uneven seals and seal overflows. This 
+dataset will act as the main basis for training and testing the defect detection models. 
+●    Apply Advanced Computer Vision and Machine Learning Techniques: Application of 
+advanced techniques in computer vision and deep learning to extract relevant features 
+from the images. This contains experimenting with various models and approaches to 
+successfully train models that can accurately detect and classify defects. 
+●    Evaluate Model Performance: The performance of the developed system is evaluated 
+using metrics such as accuracy, precision, recall, and F1-score. Based on the evaluation, 
+refine and optimize the models to achieve the highest possible detection accuracy. 
+●    Validate in Real-World Settings: Implement the developed system in a real-world 
+production environment at Volvo Cars. The system will be tested for its capacity to 
+precisely identify defects in battery lids during the manufacturing process, confirming 
+that it meets industrial standards and operational requirements. 
+1.3    
+Research Questions 
+1) How can deep learning techniques be effectively utilized to enhance the accuracy and 
+efficiency of defect detection and classification in Betaguard Yellow sealing? 
+2) What are the primary challenges in implementing an automated defect detection 
+system for defect detection in Betaguard Yellow sealing using deep learning 
+approaches, and how can these challenges be addressed? 
+This thesis is organised as follows: 
+Chapter 2: Background: Provides a broad review of related literature and existing 
+methodologies in the field of defect detection and classification, with main focus on 
+applications in automotive manufacturing.  
+Chapter 3: Methodology: The methodology used in this project, includes data collection, pre
+processing, feature extraction, model training, and evaluation.  
+Chapter 4: Implementation: The steps in this section includes details of the datasets, pre
+processing techniques, Model development - Baseline CNN, CNN and VGG16.  
+Chapter 5: Results and Evaluation: This includes the results and performance evaluation of the 
+developed system, along with discussions on the findings.  
+Chapter 6: Discussion: Theoretical framework, Ethical and Societal Implications.  
+8 | Defect  Detection 
+c21binba 
+Chapter 7: Conclusion: This section includes the thesis summary of the main contributions, 
+implications of the research, and recommendations for future work. 
+Through this research attempt, it is expected that sufficient innovations will be made towards 
+increasing the quality control processes in Volvo Cars' battery manufacturing operations, 
+finally contributing to the progress of electric vehicle technology and the advancement of 
+sustainable mobility solutions. 
+9 | Defect  Detection 
+c21binba 
+2. Background 
+This chapter highlights an in-depth overview to the field of automated defect detection in 
+manufacturing, with a specific focus on detecting defects in Betaguard Yellow sealing used in 
+the battery lids of Volvo Cars. A deep understanding of the vital role that defect detection plays 
+in retaining the safety and reliability of electric vehicle components is essential to grasp the 
+importance of this research. This chapter also covers the limitations of traditional manual 
+inspection methods and the growing possibilities of machine learning and computer vision 
+technologies to enhance the efficiency and accuracy of quality control in the automotive 
+industry. 
+2.1 Preliminaries 
+This section provides a foundational overview of the key concepts and techniques necessary 
+for understanding automated defect detection, particularly in the context of Betaguard Yellow 
+sealing in Volvo Cars' battery lids. These foundational elements are crucial for the development 
+and application of advanced machine learning models in this study. 
+2.1.1 Image Pre-processing Techniques  
+Before analysing images for defects or features, pre-processing is crucial. This step ensures 
+that images are cleaned and standardized, making them suitable for analysis. Here are the key 
+pre-processing techniques: 
+Video to Frame Conversion 
+Extracting frames from a video at regular intervals, such as one frame per second, enables 
+detailed inspection of each frame. This technique is particularly useful for detecting defects 
+that may only appear briefly, allowing for more accurate analysis by examining each frame 
+individually rather than processing continuous video data [9]. 
+Image Resizing 
+Standardizing the resolution of images to a constant size, such as 320x320 pixels, guarantees 
+consistency across the dataset. This resizing step is crucial for maintaining the balance between 
+image details and processing efficiency, facilitating effective and reliable performance of 
+machine learning models [9]. 
+Noise Reduction 
+ Gaussian Blur: Applies a smoothing filter to reduce image noise and detail by 
+averaging pixel values in a neighbourhood. This helps in reducing the impact of random 
+variations and makes the subsequent feature extraction more robust [9] [10]. 
+ Median Filtering: Replaces each pixel's value with the median of its neighbouring 
+pixels. This technique is particularly effective at removing speckle noise while 
+preserving edges, which is important for clear defect detection [9] [10]. 
+Image Normalization 
+10 | Defect  Detection 
+c21binba 
+Adjusting pixel intensity values to a standardized range (e.g., 0(black) to 255(white)) helps in 
+mitigating the effects of varying lighting conditions across images. This normalization process 
+ensures that models can focus on relevant features rather than being skewed by differences in 
+brightness and contrast [9]. 
+2.1.2   Feature extraction 
+Convolutional Neural Networks (CNNs) 
+Color-based segmentation segregates specific color ranges from an image, effectually 
+distinguishing the object of interest from the background. By converting images to a color 
+space that emphasizes distinct colors, this technique enables precise segmentation of relevant 
+areas. This method is crucial for focusing analysis on specific features or regions in an image 
+while filtering out irrelevant background elements [26]. 
+Image Thresholding 
+Thresholding simplifies images by converting them into binary format, where each pixel is 
+either black or white. This technique is essential for isolating objects from the background. 
+ Binary Thresholding: In binary thresholding, pixel intensities are compared against 
+a predefined threshold value. Pixels above the threshold are turned white, representing 
+the object, while those below are turned black, indicating the background. This 
+approach mainly focuses on the object of interest and enables defect detection by 
+clearly separating it from the background [10]. 
+ Adaptive Thresholding: When an image has changing lighting conditions, adaptive 
+thresholding computes different thresholds for smaller regions of the image. This 
+method adjusts to local lighting variations, ensuring accurate separation of objects 
+from the background despite uneven lighting [11]. 
+Edge Detection Techniques 
+Edge detection is very much important for identifying object boundaries in an image, which is 
+necessary for detecting defects. 
+ Sobel Edge Detection: The Sobel method uses convolutional filters to estimate 
+gradients in pixel intensities, emphasizing areas with sharp intensity changes. While 
+effective for basic edge detection, it may overlook finer details. It is often used as an 
+initial step due to its simplicity and efficiency [11]. 
+ Canny Edge Detection: Canny edge detection offers high precision by using a multi
+step process: smoothing the image with a Gaussian filter to reduce noise, finding 
+gradient intensities to identify potential edges, applying non-maximum suppression to 
+thin edges, and using edge tracking by hysteresis to finalize detection. This method is 
+particularly adept at identifying subtle or minor defects [11]. 
+11 | Defect  Detection 
+c21binba 
+Image Alignment and Contour-Based Defect Detection 
+Accurate image alignment and contour analysis also acts as important factors for effective 
+defect detection. 
+ Image Alignment: This process adjusts images taken from various angles or 
+positions to make sure they are properly oriented for comparison. Proper alignment is 
+important for detecting subtle defects that might be masked by misalignment [12]. 
+ Contour-Based Defect Detection: Contour detection recognizes the outlines of 
+objects in an image. Investigating these contours helps in spotting irregularities that 
+may indicate defects. Deviations from expected shapes or smooth contours can signify 
+potential issues, making contour analysis an effective method for detecting structural 
+defects [12]. 
+2.1.3   Deep learning 
+Convolutional Neural Networks (CNNs) 
+Convolutional Neural Networks (CNNs), also known as ConvNets, are a type of deep neural 
+network architecture inspired by the organisation of the animal visual cortex, mainly the 
+receptive fields of neurons. CNNs are obviously aimed to process data with a grid-like topology, 
+such as images, creating them highly suggested for tasks in computer vision [19]. 
+Key components of CNNs include: 
+1.    Convolutional Layers: These layers apply a set of learnable filters (also called kernels) to 
+input data, making convolution operations. Each filter abstracts specific features from the 
+input image by sliding across it and computing dot products with the input at both position. 
+Convolutional layers are largely liable for learning hierarchical representations of features, 
+such as edges, textures, and object parts. 
+2.    Pooling Layers: These layers reduce the size of the feature maps created by convolutional 
+layers, keeping the most important information. Two common types of pooling are max 
+pooling, which keeps the highest value in each region, and average pooling, which keeps 
+the average value. These layers help make the network less sensitive to small changes in 
+the input and reduce the amount of processing needed [19]. 
+3.  Activation Functions: Activation functions deploys non-linearity into the network, letting it 
+to learn complex patterns and relationships in the data. The most common activation 
+functions that are used in CNNs include ReLU (Rectified Linear Unit), sigmoid, and tanh. 
+ReLU is mostly chosen for to its simplicity and effectiveness in mitigating the vanishing 
+gradient problem. 
+4.     Fully Connected Layers: Fully connected layers, also known as dense layers, connect every 
+neuron in one layer to every neuron in the subsequent layer. These layers execute high
+level reasoning and decision-making based on the features learned by the convolutional 
+and pooling layers. Fully connected layers are typically found at the end of the CNN 
+12 | Defect  Detection 
+c21binba 
+architecture and are commonly followed by a softmax activation function for classification 
+jobs. 
+CNNs have done very well in different computer vision tasks like image classification, object 
+detection, and semantic segmentation [19]. Hence itself they have been applied in diverse 
+domains such as healthcare, autonomous vehicles, robotics, and natural language processing 
+(NLP) [20]. 
+VGG16 
+VGG16 is a convolutional neural network (CNN) architecture proposed by Karen Simonyan 
+and Andrew Zisserman from the Visual Geometry Group (VGG) at the University of Oxford. It 
+is characterised by its deep architecture comprising 16 convolutional layers, hence the name 
+"VGG16" [18]. 
+Key features of the VGG16 architecture include: 
+Deep Convolutional Layers: VGG16 consists of multiple convolutional layers, each trailed by a 
+rectified linear unit (ReLU) activation function and a max-pooling layer. This design enables 
+the network to learn hierarchical features from raw image data. 
+Uniform Structure: The architecture keeps a consistent pattern throughout, with 3x3 
+convolutional filters and 2x2 max-pooling layers. 
+Large Number of Parameters: Due to its depth and number of parameters, VGG16 has a high 
+capacity for learning intricate features from images. Also, this also makes it computationally 
+expensive and memory-intensive. 
+Pre-training on ImageNet: VGG16 was firstly trained on the large-scale ImageNet dataset for 
+image classification tasks. This pre-training process allows the model to capture generic 
+features from a wide range of images, making it appropriate for transfer learning to various 
+other tasks, including defect detection. 
+Overall, VGG16 is renowned for its simplicity and effectiveness in image recognition tasks. 
+Despite its relatively large number of parameters, it has been widely adopted in both research 
+and practical applications due to its distinguished performance [18]. 
+2.2   Research Background 
+In this section, explore the relevant research conducted in the field of defect detection within 
+manufacturing, with an emphasis on the techniques and methodologies employed to address 
+challenges to those in this study. The research background mainly contains studies on image 
+processing techniques and the application of machine learning for defect detection, providing 
+an understanding of the approaches and strategies that have been already developed and 
+exploited in these domains. 
+2.2.1   Defect Detection in Manufacturing 
+Traditionally, Defect Detection has been performed through manual inspection, a method 
+known for its thoroughness but also for being labour-intensive and prone to human error. In 
+13 | Defect  Detection 
+c21binba 
+high-volume production environments, the consistency and precision required to maintain 
+high standards are often lacking in manual approaches, leading to prospective oversights in 
+quality assurance. However, advancements in automation and digital imaging have 
+familiarised more reliable and efficient systems, considerably improving the quality control 
+process in manufacturing [5]. 
+Zhou et al. [6] discuss the application of automated defect detection systems using image 
+processing techniques. Their research highlights the major advantages of automation over 
+manual inspection, including increased accuracy and reduced inspection time. By employing 
+advanced image processing methods, the study establishes how defects can be identified more 
+precisely, thus reducing the chances of human error. This study is particularly pertinent to the 
+current project, as it underscores the prominence of automation in defect detection and 
+provides foundational techniques that can be adapted for detecting defects in battery lids. [6]. 
+Chen et al. [7] provide an inclusive review of various defect detection methods in 
+manufacturing, grouping them into traditional and advanced techniques. The study elucidates 
+a significant shift towards machine learning and deep learning approaches, which offer 
+superior accuracy and efficiency, essential for upholding high standards in manufacturing 
+quality control. This review aligns with the project objectives, highlighting the emphasis of 
+machine learning to revolutionize defect detection processes, making it a critical reference for 
+developing our automated system for battery lid inspection [7]. 
+2.2.2   Image Processing Techniques 
+The detection and analysis of defects in manufacturing processes depend heavily on image 
+processing. It uses a number of pre-processing approaches to emphasize and identify potential 
+defects in images more easily. Contour analysis, thresholding, and edge detection are 
+important methods that provide distinct benefits for detecting different kinds of defects. 
+Cruzada [8] explains that the HSV (Hue, Saturation, Value) colour space approach works very 
+well for image segmentation. HSV is more useful for applications where colour distinction is 
+important since it distinguishes colour information from intensity, in contrast to the RGB 
+colour space. 
+Edge detection methods, such as the Canny and Sobel filters, are mostly used to detect edges 
+in images. These techniques help identify cracks and other discontinuities by highlighting 
+significant changes in pixel intensity. Haidar [9] extensively discusses these methods, 
+explaining how edge detection can effectively locate defects that are not easily visible to the 
+naked eye. This is critical for the current project, where detecting subtle defects like cracks and 
+uneven seals is essential 
+Another crucial method is binary thresholding, which divides a grayscale image into two parts 
+according to a predetermined threshold value. More precise fault detection is made possible 
+by this technology, which is especially helpful in differentiating the sealing sections from the 
+remainder of the battery lid [10]. 
+Finding anomalies like uneven seals requires the use of contour analysis, which is the process 
+of identifying and evaluating an object's shape in an image. The contour extraction and analysis 
+techniques described by Chen et al. [12] are crucial for locating shape-based defects. By 
+14 | Defect  Detection 
+c21binba 
+precisely identifying and analysing the areas of interest on the battery lid, contour analysis 
+improves the precision of our defect detection method. 
+Image processing techniques play a crucial role in preparing battery lid images for automated 
+defect detection using machine learning. By applying techniques like grayscale conversion, 
+edge detection, filtering, morphological operations, segmentation, and contour analysis, a 
+robust system can be developed to identify cracks, uneven seals, and improper seals in Volvo 
+Cars' battery lids with Betaguard Yellow sealing material. 
+2.2.3   Machine Learning for Defect Detection 
+Machine learning, specifically deep learning, brought about a key revolution in defect detection 
+by enabling automated, high-accuracy identification and classification of defects. 
+Convolutional Neural Networks (CNNs) are mainly effective for tasks involving image 
+recognition and analysis, making them perfect for detecting and classifying defects in 
+manufacturing [16]. 
+In their paper, Huang and Zhu [14] feature an advanced defect detection system for automotive 
+parts using the YOLO V7 (You Only Look Once version 7) object detection algorithm. YOLO V7 
+is well known for its real-time detection capabilities and high accuracy. The authors tailored 
+YOLO V7 to the specific challenges of automotive parts inspection by including a custom 
+dataset of annotated defects and applying transfer learning to power up the pre-trained 
+models. The method contains pre-processing images to enhance defect visibility, feeding them 
+into the YOLO V7network, and using the algorithm's ability to predict bounding boxes and 
+class probabilities to identify and localise defects. Their results indicate that YOLO V7 can 
+remarkably detect a variety of defects with high precision and speed, making it a perfect choice 
+for integration into automated inspection systems in automotive manufacturing [14]. 
+In their comprehensive review, Saberironaghi, Ren, and El-Gindy [13] discuss various deep 
+learning techniques for defect detection in industrial products, with an extra focus on 
+Convolutional Neural Networks (CNNs). The authors highlight that CNNs are highly effective 
+for image-based defect detection due to their ability to automatically learn and extract 
+hierarchical features from raw image data. The paper explains the different CNN architectures 
+and their applications, underscoring that deeper networks like ResNet and DenseNet that have 
+shown superior performance in complex defect detection tasks due to their ability to capture 
+more abstract features and manage vanishing gradient problems. The review also covers the 
+integration of CNNs with other deep learning models, such as Generative Adversarial Networks 
+(GANs) for data augmentation and transfer learning, to increase the detection accuracy and 
+robustness of defect detection systems in several industrial applications [13]. 
+In the research article "Circuit Manufacturing Defect Detection Using VGG16 Convolutional 
+Neural Networks" by Sara A. Althubiti et al. [15], the authors employ the VGG16 model to 
+detect and classify defects in printed circuit boards (PCBs). The methodology involves pre
+processing PCB images by converting them to grayscale and normalising pixel values to 
+enhance consistency and quality. Key steps include extracting regions of interest (RoI) to focus 
+on defect-prone areas, applying data augmentation techniques like rotation and scaling to 
+improve model robustness, and using transfer learning with the pre-trained VGG16 model. The 
+model's convolutional layers extract hierarchical features from the images, which are then 
+classified through fully connected layers to identify defects such as false copper, mouse bites, 
+15 | Defect  Detection 
+c21binba 
+missing holes, and open circuits. This approach demonstrates VGG16's effectiveness in 
+enhancing the accuracy and efficiency of automated defect detection in circuit manufacturing 
+[15]. 
+The above-reviewed studies and techniques are integral to the development of our automated 
+defect detection system for battery lid sealing processes at Volvo Cars. The insights from Zho 
+et al. [5] and Chen et al. [7] provide a strong justification for the shift towards automated and 
+machine learning-based defect detection methods, which form the core of our project. Image 
+processing techniques such as edge detection, thresholding, and contour analysis are critical 
+for pre-processing and feature extraction, directly supporting our methodology. Also, the 
+advancements in machine learning, particularly the use of CNNs as demonstrated by 
+Saberironaghi, Ren, and El-Gindy [13], Sara A. Althubiti et al. [15], and Huang and Zhu [14], 
+underscore the potential of these techniques to significantly enhance defect detection accuracy 
+and efficiency. These studies collectively offer a strong foundation for our project, guiding the 
+development of a sophisticated and reliable defect detection system for battery lids. 
+16 | Defect  Detection 
+c21binba 
+3. Method 
+The methodology outlined in this section provides a systematic method for detecting defects 
+in Betaguard sealing, which is a critical part of Volvo Cars' battery lids. By succeeding a 
+structured framework that includes data acquisition, pre-processing, feature extraction, model 
+development, and validation, this methodology aims to improve the accuracy and efficiency of 
+defect detection in Betaguard sealing, finally enhancing the safety and quality declaration of 
+electric vehicles. 
+Fig.2 Framework for Defect Detection in Betaguard Sealing 
+17 | Defect  Detection 
+c21binba 
+3.1 Data Acquisition 
+1. Source of Data: 
+o Data Source: Images were obtained directly from Volvo Cars' manufacturing line, 
+focusing on Betaguard Yellow Sealing applied to battery lids. This confirmed the data 
+was relevant to the specific defects that the model was considered to detect. 
+o Collaboration: Close collaboration with Volvo’s manufacturing and quality assurance 
+teams confirmed access to a complete and high-quality dataset. The team provided 
+insights into common defects, which guided the data collection process. 
+2. High-Resolution Image Capture: 
+o Camera Setup: High-resolution cameras were strategically installed within the 
+production environment to capture detailed images of the Betaguard sealing process. 
+The cameras were organized to capture images at a resolution of 1920x1080 pixels, 
+providing the necessary detail for identifying small and subtle defects. 
+o Lighting Conditions: Multiple lighting setups were used to capture images under 
+different conditions. This approach was important for creating a robust dataset that 
+could generalize well across varying real-world situations. 
+o Image Diversity: Images were captured from different angles and views to include a 
+wide range of defect appearances. This diversity was critical for confirming that the 
+model could handle various positions of defects. 
+The choice of high-resolution images was determined by the need for precision in detecting 
+small defects in Betaguard sealing. By capturing images under different lighting conditions and 
+angles, the dataset was made more complete, enabling the model to perform reliably in diverse 
+situations. 
+3.2 Pre-processing 
+1. Video to Frame Conversion: 
+o Extraction Process: The raw video footage from the production line was methodically 
+converted into individual frames using the OpenCV library. Frames were extracted at a 
+rate of one frame per second to ensure a thorough and detailed dataset. 
+o Frame Selection: Each frame was reviewed to select those that best represented the 
+sealing process and potential defects, confirming that the dataset was focused and 
+relevant. 
+2. Image Cropping: 
+o Defining Region of Interest (ROI): Using the cropping function in OpenCV, the 
+images were cropped to focus exclusively on the Betaguard sealing area. This step was 
+crucial for removing background noise and inappropriate details that could confuse the 
+model. 
+3. Image Resizing: 
+o Standardization: Cropped images were resized to a uniform resolution of 320x320 
+pixels. This resolution was chosen based on the balance between computational 
+effectiveness and the retention of important features necessary for defect detection. 
+18 | Defect  Detection 
+c21binba 
+4. Noise Reduction: 
+o Gaussian Blur: To smooth the images, a 5x5 kernel size Gaussian blur was used. This 
+step was necessary to reduce the impact of random pixel noise that could lead to false 
+positives during defect detection. 
+o Median Filtering: In addition to Gaussian blur, median filtering was employed to 
+further reduce noise, particularly speckle noise that is common in industrial images. 
+5. Image Normalization: 
+o Intensity Scaling. A histogram equalization technique was used to scale the intensity 
+values of each image to a range of [0, 255]. Including this normalizing step provided the 
+standardization of images taken under different lighting conditions, therefore enhancing 
+the reliability of the defect detection procedure. 
+o Batch Normalization Preparation: Normalized images were prepared for 
+subsequent batch normalization during model training, which helps stabilize and 
+accelerate the training process. 
+The pre-processing steps were carefully selected to enhance the quality of the images and 
+decrease variability, which is critical for achieving accurate defect detection. By standardizing 
+the images, the model could focus on identifying defects rather than being misled by variations 
+in lighting or image noise. 
+3.3 Feature Extraction 
+1. Color-Based Segmentation: 
+o Color Space Conversion: Images were converted from RGB to HSV(Hue Saturation 
+Value) color space to control the distinct color characteristics of Betaguard Yellow 
+Sealing. The HSV space allowed for more exact segmentation of the sealing area by 
+dividing the hue, saturation, and value ranges specific to the seal. 
+o Mask Creation: A binary mask was created by defining a specific range of HSV values 
+that corresponded to the color of the Betaguard seal. This mask was applied to each 
+image to separate the sealing area, ensuring that the analysis was focused only on the 
+region of interest. 
+2. Edge Detection: 
+o Canny Edge Detection: This technique was used to identify boundaries and sharp 
+transitions within the images. This method was chosen because it is quite accurate in 
+identifying edges, which is important for identifying defects in the sealing material, such 
+as uneven surfaces or cracks. 
+o Parameter Tuning: The lower and upper thresholds of the Canny algorithm were 
+precisely designed to improve edge identification without producing excessive noise or 
+removing important data. 
+3. Thresholding: 
+o Binary Thresholding: Binary thresholding was applied to further separate the 
+foreground (the Betaguard sealing) from the background. By converting the grayscale 
+image to a binary image, the model could more easily identify and classify defects based 
+on the intensity contrast between the seal and the nearby area. 
+19 | Defect  Detection 
+c21binba 
+o Adaptive Thresholding: In cases where lighting conditions varied significantly across 
+the image, adaptive thresholding was employed to adjust the threshold value locally, 
+confirming consistent defect detection across the complete image. 
+4. Contour Analysis: 
+o Contour Extraction: Contours were extracted from the thresholded images to outline 
+the shape of the sealing area. This step was crucial for identifying basic defects that clear 
+as irregularities in the contour shape. 
+o Shape Analysis: Each contour was analyzed based on its geometric properties, such as 
+area, perimeter, and shape complexity. This analysis helped in unique between normal 
+sealing and defective areas where the shape deviated from the expected pattern. 
+Feature extraction techniques were selected to focus on the critical aspects of Betaguard sealing 
+that are revealing of defects. By separating the sealing area through color-based segmentation 
+and analyzing edges and contours, the model could accurately identify and classify defects 
+based on their visual characteristics. 
+Methods ignored 
+Sobel edge detection was excluded from this project due to its limitations in capturing fine 
+details and handling noise. While Sobel is useful for detecting basic edges, it often struggles 
+with subtle defects because it only calculates gradients in two directions and can produce less 
+precise edge maps. This method is also more susceptible to noise, which can lead to false or 
+messy edges that complicate defect detection. For identifying small or complex defects in 
+Betaguard Yellow sealing, more advanced techniques like Canny edge detection are preferred 
+because they offer better precision and accuracy by employing a multi-stage process that 
+includes noise reduction and detailed edge alteration. 
+3.4 Model Development 
+1. Selection of Convolutional Neural Networks (CNNs): 
+o CNNs were chosen for their powerful ability to process and analyze image data by 
+automatically learning hierarchical feature representations. Their structure, which 
+includes multiple layers of convolutional filters, pooling, and fully connected layers, 
+makes them particularly suitable for defect detection tasks that require detailed analysis 
+of image features. 
+2. Implementation of VGG16 Architecture: 
+o Model Architecture: The VGG16 architecture was selected due to its deep network 
+structure, consisting of 16 layers including 13 convolutional layers followed by 3 fully 
+connected layers. This depth allowed the model to capture both low-level and high-level 
+features necessary for identifying subtle defects in Betaguard sealing. 
+o Transfer Learning: Pre-trained weights from the ImageNet dataset were utilized, 
+followed by fine-tuning on the Betaguard dataset. This approach leveraged the extensive 
+feature learning from a large, diverse dataset while adapting the model to the specific 
+task of defect detection. 
+3. Training the Model: 
+20 | Defect  Detection 
+c21binba 
+o Data Augmentation: Rotations, flips, zooming, and shifting were among the data 
+augmentation techniques used to overcome the defect dataset's limited size. The dataset 
+was dramatically increased as a result, and the model's generalization to new, untested 
+data was improved. 
+o Optimization: The Adam optimizer was used for its adaptive learning rate capabilities, 
+which helped in efficiently minimizing the loss function. Dropout layers were 
+incorporated to prevent overfitting by randomly deactivating neurons during the 
+training process. 
+3.5. Validation and Testing 
+Test Set Evaluation: A different test set that wasn't used for training or validation was used 
+to assess the model's performance. This provides a fair evaluation of the model's ability to 
+identify defects in the real world. 
+The VGG16 architecture and CNNs were selected due to their effectiveness in image 
+classification tasks and their ability to manage complex visual data. The model was able to start 
+with a solid basis due to the application of transfer learning, and it was subsequently adjusted 
+to meet the particular needs of Betaguard defect detection. 
+Methods Ignored  
+You Only Look Once, or YOLO Model 
+Although YOLO's real-time detection capabilities were taken into consideration, the project 
+ultimately decided against using it because accuracy was more important than speed of 
+detection. To achieve high precision in identifying minor and complicated defects, the strength 
+of YOLO in fast object identification was less relevant. 
+3.6 Collaboration and Feedback 
+Regular discussions were held with Volvo Cars to review and validate the findings from the 
+defect detection models. These meetings were crucial in ensuring that the research remained 
+aligned with practical industry requirements. The feedback received helped refine the models, 
+particularly in terms of focusing on the most critical defect types and adjusting the evaluation 
+criteria to meet Volvo's quality standards. 
+21 | Defect  Detection 
+c21binba 
+4.  Implementation 
+Using an Intel Core i7 processor and 16GB of RAM, a personal computer, Python 3.8 and 
+OpenCV 4.5.2 were used for the pre-processing. 
+The proposed methodology is divided into several steps during the implementation phase, 
+which includes data pre-processing, model development, training, and evaluation.  
+Making use of Python programming language and popular libraries such as TensorFlow and 
+Keras, the implementation process expedites the practical understanding of the defect 
+detection system for Betaguard sealing. 
+The following libraries were utilised 
+OpenCV (cv2): OpenCV was used for a variety of tasks including image processing, video 
+frame extraction, resizing, and cropping. It provided essential functionalities for manipulating 
+and pre-processing raw image data. 
+NumPy: NumPy played a major role in handling numerical computations and array 
+operations. It provided efficient data structures and functions for performing mathematical 
+operations on large multidimensional arrays. 
+Matplotlib: Matplotlib facilitated the generation of informative visualisations for data 
+exploration, model performance analysis, and result visualisation. It offered a versatile set of 
+plotting functions and tools for creating publication-quality plots and figures. 
+Pandas: Particularly for tabular data, pandas assisted in the manipulation and analysis of 
+structured data. Along with features for data cleaning, transformation, and aggregation, it also 
+offered strong data structures including Data Frames and Series. 
+Scikit-learn: This package, containing a variety of machine learning algorithms, pre
+processing methods, and evaluation measures, was also integrated into the model
+development process. It was appropriate for research and real-world applications since it 
+offered an easy-to-use interface for creating and assessing machine learning models. 
+Together, these libraries made it easier to use the suggested approaches, which allowed for 
+effective data processing, model development, training, and evaluation. 
+4.1 Dataset  
+The dataset used for training and evaluating the defect detection model consists of 1600 
+images, evenly distributed across four classes. This balanced dataset helps ensure that the 
+model receives an equal representation of each type of defect, which is crucial for achieving 
+unbiased performance. The details of the dataset are as follows: 
+No Defects: 400 images 
+This class includes images where no defects are present. The absence of defects provides the 
+model with a reference point understanding of normal, defect-free images. 
+Crack: 400 images 
+22 | Defect  Detection 
+c21binba 
+This class contains images showing various types of cracks. One of the primary defects that 
+must be properly identified in order to stop material breaks is cracks. 
+Uneven Seal: 400 images 
+This class includes images representing uneven sealing. Detecting uneven seals is essential for 
+ensuring the integrity and functionality of sealed components. 
+Seal Overflow: 400 images 
+Images showing seal overflow. Identifying this defect is important for maintaining quality 
+control in manufacturing processes. 
+Dataset Preparation 
+Each image in the dataset was pre-processed using a series of steps to enhance the features 
+relevant for defect detection. These pre-processing steps started from converting the images to 
+HSV colour space, applying masks to filter specific colour ranges, and using edge detection and 
+contour finding techniques to highlight the defect areas. 
+After that, the image sets were split into training (80%) and test (20%) sets in order to 
+efficiently train and evaluate the model. This section verifies that the model's performance is 
+evaluated using real data, offering an accurate estimate of its capacity for generalization. 
+4.2 Pre-processing 
+The images used in this study are collected from an industrial setting, capturing various 
+instances of seals with potential defects.  
+Video to Frame Conversion: Upon completion of data acquisition, the pre-processing 
+stage initiates with the conversion of captured videos into individual frames using the OpenCV 
+(Open Source Computer Vision) library. Each frame is extracted at regular intervals from the 
+recorded videos, ensuring comprehensive coverage of the Betaguard sealing process. By 
+converting videos into frames, the data is transformed into a format conducive to subsequent 
+analysis and processing. 
+Image Cropping: Following frame extraction, the next step in pre-processing involves 
+cropping each frame to focus solely on the Betaguard sealing area of interest. Using OpenCV's 
+image manipulation functions, a region of interest (ROI) encompassing the Betaguard sealing 
+is defined and extracted from each frame. By isolating the Betaguard sealing area, irrelevant 
+background information is removed, optimising the dataset for subsequent defect detection 
+algorithms. 
+Image Resizing: The cropped Betaguard sealing images are then resized to a standardised 
+resolution of 320 x 320 pixels. This resizing operation is performed using OpenCV's image 
+manipulation functionalities, ensuring uniformity and consistency across the dataset. Resizing 
+the images to a fixed resolution facilitates computational efficiency during subsequent analysis 
+and model development while preserving essential features necessary for defect detection 
+algorithms. 
+23 | Defect  Detection 
+c21binba 
+Noise Reduction: To increase the quality and clarity of the resized Betaguard sealing images, 
+noise reduction techniques are applied to diminish unwanted artefacts and imperfections. 
+OpenCV provides a suite of noise reduction algorithms, including Gaussian blur and median 
+filtering, which are engaged to smooth the image and suppress random variations in pixel 
+intensity. By reducing noise, the Betaguard sealing images become more conducive to accurate 
+defect detection and classification. By smoothing the image, this noise reduction reduces the 
+amount of incorrect edges that are detected . 
+blurred = cv2.GaussianBlur(gray, (5, 5), 0) 
+Image Normalisation: Image normalisation is then carried out to standardise the intensity 
+levels of the resized Betaguard sealing images, ensuring consistency and comparability across 
+various lighting conditions and environments. OpenCV's normalisation functions are used to 
+scale the pixel values of each image to a predefined range, typically [0, 1] or [0, 255], thereby 
+enhancing the robustness of subsequent analysis and minimising the influence of illumination 
+variations on defect detection algorithms. 
+4.3 Feature Extraction 
+Feature extraction is a serious stage aimed at capturing discriminative patterns indicative of 
+defects in Betaguard sealing. Relevant features, such as texture, form, and intensity variations 
+associated with various types of defects, are extracted from the pre-processed images by 
+utilizing 
+domain 
+expertise 
+and 
+image 
+processing 
+techniques. 
+1.Color-Based Segmentation: Next, the Betaguard sealing region is separated from the 
+image background using color-based segmentation. The original images are converted from 
+the RGB color system to the HSV color space as part of the pre-processing procedure. A preset 
+range of hue, saturation, and value is determined inside the HSV color space to produce a mask 
+that emphasizes the Betaguard sealing region according to its unique color attributes. 
+This segmentation step confirms that only the relevant region containing the Betaguard sealing 
+is retained for further analysis. 
+hsv_img = cv2.cvtColor(original_img, cv2.COLOR_BGR2HSV) 
+lower_orange = np.array([0, 80, 50]) 
+upper_orange = np.array([30, 255, 255]) 
+orange_mask = cv2.inRange(hsv_img, lower_orange, upper_orange) 
+masked_img = cv2.bitwise_and(original_img, original_img, mask=orange_mask) 
+Grayscale conversion is applied to the images after color masking. This reduces complexity and 
+prepares the image data for further edge detection. 
+gray = cv2.cvtColor(masked_img, cv2.COLOR_BGR2GRAY) 
+2. Edge Detection: Edge detection techniques are applied to identify sharp transitions and 
+boundaries within the Betaguard sealing area. The Canny edge detection algorithm is utilised 
+to detect edges based on gradients in intensity. By analyzing the edges, it is possible to identify 
+24 | Defect  Detection 
+c21binba 
+significant structural parts such as cracks and irregularities in the sealing surface, providing 
+valuable guidance for defect identification. 
+edges = cv2.Canny(blurred, threshold1=50, threshold2=150) 
+3. Thresholding: Applying a binary threshold allows for additional image segmentation. This 
+step allows the separation of foreground and background defects. 
+_, thresh = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY) 
+4. Contour Analysis: Following edge detection, Contour analysis is performed to extract 
+meaningful structural information from the Betaguard sealing area. Contours are identified as 
+continuous curves representing the boundaries of objects within the segmented region. 
+Contours with areas below a specified threshold are filtered out to remove noise and irrelevant 
+features. The remaining contours represent salient structural components of the Betaguard 
+sealing, which are subsequently utilised for feature extraction. 
+contours,_=cv2.findContours(thresh,cv2.RETR_EXTERNAL, 
+cv2.CHAIN_APPROX_SIMPLE) 
+min_contour_area = 100 
+contours = [cnt for cnt in contours if cv2.contourArea(cnt) > min_contour_area] 
+Important properties of the sealing surface are measured by using feature extraction 
+techniques once the Betaguard sealing area has been divided and relevant structural features 
+have been found using contour analysis and edge detection. These features encompass a 
+diverse range of descriptors, including texture features, shape descriptors, and intensity 
+statistics. Methods such as local binary patterns (LBP), Hu moments, and histogram analysis 
+are employed to extract discriminative features from the segmented Betaguard sealing area. 
+contour_mask = np.zeros_like(gray) 
+cv2.drawContours(contour_mask, contours, -1, (255, 255, 255), thickness=cv2.FILLED) 
+extracted_image = cv2.bitwise_and(original_img, original_img, mask=contour_mask) 
+Finally, upon completion of the preprocessing steps, a message is displayed, indicating the 
+successful execution of the function and the directory where the processed images are saved. 
+output_path = os.path.join(output_dir, filename) 
+cv2.imwrite(output_path, extracted_image) 
+25 | Defect  Detection 
+ 
+c21binba 
+26 | Defect  Detection 
+ 
+ 
+Fig. 3. Pre-processing steps in  images 
+Original Image: The raw input image displaying the first scene or interesting object. 
+ HSV Image: To distinguish between color and intensity information the images is 
+transformed into the Hue, Saturation, Value (HSV) color space. 
+ Canny Edges: The image's discovered edges are highlighted as a result of the Canny 
+Edge Detection algorithm's application. 
+ Contour Image:An image that shows the contours of features or objects found in the 
+original image is called a contour image. 
+ Threshold Image: An image produced by thresholding, a process that turns color or 
+grayscale images into binary images according to color or intensity levels. 
+ Grayscale Image: The original image in which the brightness of each pixel is 
+represented by its intensity. 
+Masked Image: The final image obtained after applying a mask to the original image, 
+which separates specific regions or features based on predefined criteria. 
+Utilising Keras and TensorFlow for Defect Detection in Volvo Sealing Process 
+In the Volvo sealing process project, the ultimate objective is to detect defects in the sealing 
+process using deep learning techniques. This involves analysing images captured from the 
+c21binba 
+sealing process to identify any anomalies or irregularities. To accomplish the same, Keras and 
+TensorFlow are utilised for training various deep learning models, including VGG16, and CNN 
+[22]. 
+An Overview of TensorFlow and Keras 
+❖ Keras: Intended to run on top of TensorFlow, Theano, or CNTK, Keras is an advanced neural 
+network API. Its convenient interface for building and improving deep learning models makes 
+it perfect for rapid prototype development. Python-based Keras is an open-source deep
+learning library. It removes the complexity associated with implementing neural networks, 
+allowing developers to focus on model architecture and experimentation [22]. 
+❖ TensorFlow: Google created the open-source machine learning framework TensorFlow. It 
+provides a wide range of frameworks, and tools for creating and implementing machine 
+learning models. For training deep neural networks, TensorFlow provides excellent 
+performance, scalability, and flexibility.  [22] 
+4.4. Model Development 
+Data Generators 
+Data generators play an important role in the implementation process by feeding the data into 
+the neural network in batches and splitting the dataset into training, validation, and test sets. 
+The create_data_generators function is designed to smoothen this process. It starts by 
+applying rescaling to normalise the pixel values of the images. For the training data, it utilises 
+a validation split of 0.3, meaning that 30% of the training data is reserved for validation 
+purposes. This is accomplished through the ImageDataGenerator class from the Keras library, 
+which handles the data augmentation and preparation tasks. The function creates distinct data 
+generators for training, validation, and testing datasets. The training and validation generators 
+are derived from the same training folder, with the validation subset specified, while the test 
+generator is derived from a distinct test folder. These generators load images in grayscale 
+mode, ensuring consistency in the input data format for the neural network, and process the 
+images in batches, thus optimising memory usage and computational efficiency during model 
+training and evaluation. 
+27 | Defect  Detection 
+ 
+c21binba 
+28 | Defect  Detection 
+ 
+ 
+Fig.4 Processed mask images 
+4.4.1. Convolutional Neural Networks (CNNs) 
+Convolutional Neural Networks (CNNs) is chosen for this project for their better ability to learn 
+hierarchical features from raw image data, making them well-suited for image classification 
+tasks such as defect detection in Betaguard sealing. The CNN architecture includes multiple 
+convolutional layers, each followed by a pooling layer to progressively reduce spatial 
+dimensions and extract essential features. Dropout layers are incorporated to prevent over 
+fitting by randomly deactivating neurons during training. Leaky ReLU activation functions are 
+applied to introduce non-linearity and alleviate the vanishing gradient problem. To enable the 
+model to output probability distributions over the classes, a densely connected layer with a 
+softmax activation function is composed of the final layer. To improve model generalization 
+and reduce overfitting one of the regularization approaches such as L2 regularization is 
+applied. 
+4.4.2. Visual Geometry Group (VGG)16 
+VGG16, well-known for its deep architecture and remarkable performance in image 
+recognition tasks, is also engaged in the project for defect detection in Betaguard sealing. A 
+powerful feature extractor VGG16 is used because it has been pre-trained on the ImageNet 
+dataset and is capable of capturing minute defects in images. The pre-trained VGG16 model is 
+c21binba 
+adjusted using fine-tuning techniques to fit to the specific defect detection task. Multiple 
+convolutional layers compose the model architecture, which is then followed by max-pooling 
+layers to downsample feature maps. 
+Dropout layers are integrated to prevent over fitting, while Leaky ReLU activation functions 
+introduce non-linearity. The final layer includes a densely connected layer with a softmax 
+activation function, enabling the model to predict the probability distribution over the classes. 
+4.5 Training and Optimization 
+The training and optimization phase of deep learning models is vital in developing an effective 
+defect detection system for Betaguard sealing. The key steps involved in this section are 
+training the models and optimising their performance to achieve accurate defect detection. 
+Data Augmentation and Class Weighting: To address class imbalance and improve 
+model generalisation, the training dataset are expanded to apply Data augmentation 
+techniques such as rotation, flipping, and zooming. Additionally, class weights are adjusted to 
+ensure balanced learning, especially when dealing with unequally distributed classes. 
+Hyperparameter Tuning: The performance of deep learning models are determined by 
+using hyperparameters. To optimise hyperparameters such as learning rate, batch size, and the 
+number of layers, techniques like grid search or random search are employed. To improve the 
+model's performance and improves its ability to generalise to unseen data, optimization 
+process are fine-tuned. 
+Model Compilation: The model is compiled with suitable configurations, including the 
+choice of loss function, optimizer, and evaluation metrics are used before training,. In this case, 
+'categorical_crossentropy' is chosen as the loss function, 'adam' optimizer is used for gradient 
+descent, and 'accuracy' is selected as the evaluation metric. 
+Training: The fit method is used for model training, which takes the training data generator 
+as input. Additionally, a validation data generator is provided to monitor the model's 
+performance on unseen data during training. The EarlyStopping callback is employed to halt 
+training if there is no improvement in validation loss after a certain number of epochs, 
+preventing overfitting. The best weights of the model are restored using the 
+restore_best_weights parameter. 
+Monitoring Training Progress: The training history is stored in the history variable, 
+containing metrics such as loss and accuracy for both training and validation sets across 
+epochs. This information enables performance analysis and visualisation, facilitating insights 
+into the model's learning process and guiding further optimization efforts. 
+The training and optimization phase is essential for developing accurate deep learning models 
+for defect detection in Betaguard sealing. By systematically fine-tuning hyperparameters, 
+applying data augmentation techniques, and monitoring training progress, the models can be 
+fine-tuned to attain optimal performance, leading to improved accuracy and reliability in 
+defect detection. 
+29 | Defect  Detection 
+c21binba 
+4.6. Model Evaluation 
+In the model evaluation step, the performance of the developed Convolutional Neural Network 
+(CNN) and Visual Geometry Group (VGG16) models is exactly assessed on the chosen test 
+dataset. This evaluation aims to measure the effectiveness of the models in accurately detecting 
+and classifying defects within Betaguard sealing cases. By using a set of metrics including 
+accuracy, precision, recall, and F1-score, the models' predictive capabilities are systematically 
+examined. Accuracy serves as a fundamental measure of overall correctness, while precision 
+quantifies the proportion of true positive predictions among all positive predictions. Similarly, 
+recall measures the proportion of true positive predictions among all actual positives. The F1
+score, being the harmonic mean of precision and recall, provides a balanced assessment of the 
+models' performance, considering both false positives and false negatives. Through proper 
+evaluation, valuable insights are achieved into the models' capabilities, enabling informed 
+decision-making and guiding potential enhancements in the defect detection system. 
+Performance Metrics 
+Performance metrics serve as quantitative measures of model performance, supporting 
+comparison and assessment across different models and evaluation criteria. The following 
+metrics are computed during the validation process: 
+Accuracy: The proportion of correctly classified sealing cases out of the total number of 
+instances. 
+Precision: The ratio of true positive predictions to the total number of positive predictions, 
+indicating the model's ability to avoid false positives. 
+Recall: The ratio of true positive predictions to the total number of actual positive instances, 
+reflecting the model's ability to capture all positive instances. 
+F1-Score: The harmonic mean of precision and recall, providing a balanced measure of the 
+model's performance across precision and recall. 
+Classification Report (Precision, Recall, and F1-Score) 
+Classification report metrics provide precision, recall, f1-score, and support for each class. 
+Precision = TP / (TP+FP). 
+Recall = TP / (TP+FN). 
+F1-Score = 2 (Precision recall) / (Precision + recall) 
+Support - It represents number of occurrences of particular class is in True. 
+30 | Defect  Detection 
+c21binba 
+5. Results 
+5.1. Baseline Benchmark CNN model 
+Method without Pre-Processing 
+This section outlines the method for our baseline Convolutional Neural Network (CNN) model, 
+which is considered to operate on raw, unprocessed data. This baseline setup serves as a 
+reference for assessing how pre-processing techniques might affect model performance in later 
+sections. 
+Data Description 
+The dataset used in this work consists of color images with dimensions of 320x320 pixels. 
+These images are utilized without any pre-processing adjustments, such as augmentation or 
+normalization. This method provides that we evaluate the model's efficiency using unmodified 
+data. 
+Model Architecture 
+Baseline CNN model follows a straightforward architecture 
+ Convolutional Layers: Three convolutional layers constitute the model's architecture. A 
+max-pooling layer follows after each convolutional layer to minimize the spatial 
+dimensions of the feature maps after each layer utilizes filters to extract features from the 
+images. To add non-linearity, the convolutional layers use the Rectified Linear Unit 
+(ReLU) activation function. 
+ Dense Layers: The model switches to two fully connected (dense) layers after the 
+convolutional and pooling layers. The first dense layer employs ReLU activation to further 
+process the extracted features. The second dense layer, which serves as the output layer, 
+uses softmax activation to classify the images into one of three categories. 
+Fig.4. Images before pre-processing  
+31 | Defect  Detection 
+c21binba 
+Training and Validation 
+The model was trained using the Adam optimizer and the sparse categorical cross-entropy loss 
+function. Early stopping and model check pointing were employed to prevent over fitting 
+during the training process. 
+Fig. 5. Training and Validation Graph 
+Model Overview 
+The baseline model is made up of convolutional neural networks (CNNs), that are used for 
+image classification. The model was trained over 70 epochs using both training and validation 
+data sets. 
+The key metrics monitored during training were loss and accuracy, both of which are essential 
+to understand the model's performance and generalization capability. 
+Training and Validation Loss 
+The left plot shows the training and validation loss over the epochs: 
+ Training Loss: The training loss decreases rapidly in the initial epochs and then stabilizes 
+at a very low value. This indicates that the model quickly learns from the training data. 
+ Validation loss: After a few epochs, validation loss tends to decline more than training loss, 
+suggesting that the model may be beginning to over fit. Over fitting occurs when the model 
+begins to learn from the training set rather than efficiently adjusting to new data. 
+Training and Validation Accuracy 
+The right plot presents the training and validation accuracy over the epochs: 
+Training Accuracy: The model almost perfectly fits the training data as the training accuracy 
+rapidly approaches 1.0 (or 100%). 
+Validation Accuracy: On the other hand, validation accuracy first increases before varying and 
+stabilizing at a significantly lower number (around 80–85%). The over fitting issue is further 
+confirmed by the deviation from the training accuracy. 
+32 | Defect  Detection 
+c21binba 
+Model Performance Evaluation 
+Overview 
+The baseline Convolutional Neural Network (CNN) model was trained in four categories: No 
+Defects, Crack, Uneven Seal, and Seal Overflow. The model's performance was evaluated using 
+standard metrics like recall, accuracy, precision, and F1-score. A summary of the evaluation's 
+findings is provided below. 
+Test Accuracy and Loss 
+Test Accuracy: On the test dataset, the model achieved an accuracy of 88.75%, meaning that 
+about 89 of the 100 predictions the model produced were accurate. 
+• Test Loss: The test loss, which calculates the prediction error of the model, is 0.2187. In this 
+case, a loss of 0.2187 shows that the model is performing better than average, with a lower loss 
+indicating improved model performance. 
+Classification Report 
+Complete performance metrics, including as precision, recall, and F1-score for every class, are 
+provided in the classification report. 
+Fig 6. Classification Report 
+Test Loss: 0.21867482364177704, Test Accuracy: 0.887499988079071 
+ Class 0 (No Defects): Precision: 0.76, Recall: 0.81, F1-Score: 0.78, Support: 80 samples. 
+The model correctly identified 81% of the images with no defects. The accuracy of 76%, 
+however, suggests that a few images that were predicted to be No Defects were in actually 
+defective. 
+ Class 1 (Crack): Precision: 1.00, Recall: 1.00, F1-Score: 1.00, Support: 80 samples 
+With 100% precision and recall, the model identified cracks correctly. This indicates that every 
+image containing a crack was correctly identified, and there were no false positives. 
+ 
+Class 2 (Uneven Seal): Precision: 0.80, Recall: 0.74, F1-Score: 0.77, Support: 80 samples 
+33 | Defect  Detection 
+c21binba 
+The model correctly identified 74% of the uneven seal cases, with a precision of 80%. This 
+suggests that the model had some difficulty distinguishing between uneven seals and other 
+defect types or no defects. 
+ 
+Class 3 (Seal Overflow): Precision: 1.00, Recall: 1.00, F1-Score: 1.00, Support: 80 samples 
+Similar to crack detection, the model performed perfectly in detecting seal overflow, with no 
+false negatives or false positives. 
+ 
+Overall Performance: Accuracy: 0.89 (89%) 
+Macro Average: 0.89 for precision, recall, and F1-score. 
+Weighted Average: 0.89 for precision, recall, and F1-score. 
+The overall accuracy and macro/weighted averages indicate that the model performs 
+consistently across different classes, with strong performance in detecting cracks and seal 
+overflow, and slightly lower performance in detecting uneven seals and no defects. 
+Confusion Matrix 
+The model's performance is visualized using the confusion matrix, which shows the true 
+positive and false positive rates for each class. 
+Fig. 7. Confusion Matrix  
+ No Defects: Correctly classified 65 out of 80 images. Misclassified 15 images as "Uneven 
+Seal." 
+ Crack: All 80 images were correctly classified as "Crack." 
+ Uneven Seal: Correctly classified 59 out of 80 images. Misclassified 21 images as "No 
+Defects." 
+ Seal Overflow: All 80 images were correctly classified as "Seal Overflow." 
+34 | Defect  Detection 
+c21binba 
+Analysis 
+ The model shows strong performance in detecting cracks and seal overflow with no 
+misclassifications. 
+ Since some No Defects images have been mistakenly identified as Uneven Seal, and 
+vice versa, distinguishing between No Defects and Uneven Seal appears to be the 
+primary challenge. The similar looks of the two classes may be the cause of these 
+misclassifications, suggesting that more preprocessing or fine-tuning may be necessary 
+to improve performance in these places. 
+The baseline CNN model demonstrates strong performance, particularly in detecting cracks 
+and seal overflow, with perfect precision and recall for these classes. However, there is some 
+room for improvement in distinguishing between No Defects and Uneven Seal. Overall, with a 
+test accuracy of 88.75%, the model provides a solid foundation for defect detection tasks, with 
+potential for further optimization. 
+Use pre-processing techniques in combination with a Convolutional Neural Network (CNN) to 
+increase the accuracy of categorizing "No Defects" and "Uneven Seal." Pre-processing uses 
+techniques including thresholding, masking, edge detection, grayscale conversion, and HSV 
+conversion to improve image quality and highlight unique characteristics. By highlighting 
+significant differences and extracting necessary information from background noise, these 
+strategies help the model distinguish more reliably between these closely related categories 
+and decrease misclassifications. 
+5.2. Convolutional Neural Networks 
+With Pre-processing techniques 
+In this section, the implementation of pre-processing techniques applied to all images in the 
+CNN model. By incorporating pre-processing across the entire dataset, aim to enhance the 
+model's performance and address previous misclassification issues. 
+Data Pre-processing 
+1. HSV Conversion: Images have been converted into the hue, saturation, and value 
+components separately using the HSV color space. The characteristics that set No Defects 
+and Uneven Seal distinct but may not be visible in the RGB color space are highlighted by 
+this modification. 
+2. Edge Detection: To draw attention to the images' edges and structural elements, the Canny 
+Edge Detection technique is used. This aids in identifying critical boundaries that can help 
+differentiate between the two classes more effectively. 
+3. Thresholding: Thresholding converts images into binary format based on pixel intensity, 
+which isolates significant features and reduces the impact of irrelevant background 
+elements. 
+4. Grayscale Conversion: Images are also converted to grayscale to focus solely on brightness. 
+This simplifies the data and enhances the model’s ability to detect structural differences 
+between the classes. 
+5. Masking: Specific regions of interest are isolated through masking, which highlights crucial 
+areas for distinguishing "No Defects" from "Uneven Seal." 
+35 | Defect  Detection 
+c21binba 
+Model Architecture and Training 
+The three layers that comprise up the CNN model architecture remain convolutional, max
+pooling, and fully connected. All images undergo the same preparation methods prior to being 
+fed into the model. The network is trained using the sparse categorical cross-entropy loss 
+function, the Adam optimizer, early stopping, and model checkpointing to avoid overfitting. A 
+range of performance criteria, including F1-score, recall, accuracy, and precision, were used to 
+evaluate convolutional neural networks (CNNs) for defect identification. These measurements 
+offer a thorough understanding of how well the model detects defects. 
+Fig. 8.Training and Validation Loss & Accuracy Graphs: CNN 
+ Left Plot (Loss) 
+o Training Loss: The blue line represents the training loss, which decreases 
+smoothly as the epochs progress. This indicates that the model is learning and 
+improving during training. 
+o Validation Loss: This loss, which is shown by the orange line, varies over time 
+but is never smaller than the training loss. It's possible that the model is over 
+fitting if it performs well on training data than validation data. 
+ Right Plot (Accuracy) 
+o Training Accuracy: The blue line represents the training accuracy, which 
+quickly reaches a high value and stays consistent throughout the epochs. This 
+indicates that the model is correctly classifying the training data. 
+o Validation Accuracy: The orange line shows the validation accuracy, which is 
+lower than the training accuracy and exhibits more variability. This variability 
+suggests that the model’s performance on unseen data is not as stable, further 
+hinting at potential over fitting. 
+Test Loss: 0.7984459400177002 
+Test Accuracy: 0.887499988079071 
+36 | Defect  Detection 
+c21binba 
+Test Loss and Accuracy 
+ Test Loss: 0.7984 
+o This value is relatively low, suggesting that the model has a reasonably good 
+performance on the test data, although it could be improved. 
+ Test Accuracy: 0.8875 (88.75%) 
+o This indicates that the model correctly classifies approximately 88.75% of the 
+test data. While this is a strong result, the difference between training and test 
+accuracy might indicate slight over fitting. 
+Classification Report 
+The classification report provides detailed metrics for each class in the dataset 
+Fig 9. Classification Report CNN 
+ Precision: The ratio of correctly predicted instances to the total predicted instances for 
+each class. 
+ Recall: The ratio of correctly predicted instances to the total actual instances for each 
+class. 
+ F1-Score: The harmonic mean of precision and recall, providing a single score that 
+balances both metrics. 
+ Support: The number of true instances for each class. 
+ Overall Accuracy: 0.89 or 89%, aligning with the test accuracy. This suggests balanced 
+performance across classes. 
+The confusion matrix visually represents the performance of the model across different classes  
+37 | Defect  Detection 
+c21binba 
+Confusion Matrix 
+Fig. 10. Confusion Matrix: CNN 
+ True Positives (Diagonal values): These indicate the correct predictions for each class. 
+ Off-Diagonal Values: These represent misclassifications, showing where the model is 
+confusing one class for another. 
+ The matrix highlights that the model performs particularly well in certain categories 
+(Crack), where it achieves perfect accuracy, but struggles slightly with others (Uneven 
+Seal), where misclassifications are more common. 
+ The CNN model demonstrates strong performance with an overall test accuracy of 
+88.75% and a test loss of 0.7984. The classification metrics indicate robust 
+performance across most classes, though there are signs of slight over fitting, as 
+indicated by the gap between training and validation metrics. The confusion matrix 
+further clarifies where the model excels and where it faces challenges, particularly in 
+distinguishing between similar classes. Future work could focus on reducing over 
+fitting, perhaps by employing regularization techniques or gathering more diverse 
+training data. 
+5.3. VGG 16 
+VGG 16-Based Convolutional Neural Network for Image Classification 
+Model Overview: Pre-trained Convolutional Neural Network (CNN) model VGG16 was the 
+base for the custom image classification task and it is famous for its deep architecture. It 
+consisting of 16 weight layers (13 convolutional layers and 3 fully connected layers). This model 
+performs well in various computer vision tasks mainly that involve image classification tasks. 
+Model Architecture: The architecture of the model is based on the standard VGG16 
+architecture, which includes the following components: 
+38 | Defect  Detection 
+c21binba 
+Convolutional Layers: Several convolutional layers with 3x3 filters constitute the model, 
+which is stacked to extract complex information from the input images. Max-pooling layers 
+(2x2) are implemented after each convolutional block to minimize the feature maps' spatial 
+dimensions. 
+Fully Connected Layers: The final layers of the VGG16 model include fully connected 
+layers, followed by a softmax layer for classification. 
+Transfer Learning 
+ Transfer learning was utilized by loading pre-trained weights from VGG16 trained on 
+the ImageNet dataset. 
+ The top layers were modified to suit the specific classification task involving four 
+classes: Crack, No Defects, Seal Overflow, and Uneven Seal. 
+Output Layer: In the output layer consist of four neurons, which match the four classes in 
+the dataset. To calculate the probabilities for each class a softmax activation function is used. 
+Training and Optimization 
+ Data Augmentation: Random rotations, flips, and shifts were useful to the training 
+dataset to increase the strength of the model. 
+ Optimizer: A combination of Adam optimizer and a learning rate scheduler were 
+applied to dynamically correct the learning rate during training. 
+ Loss Function: The loss function Categorical cross-entropy was used for the multi class 
+classification tasks. 
+ Metrics: To evaluate the model’s performance, Accuracy was the primary measure. 
+Fig. 11 Training and Validation Loss & Accuracy Graph: VGG16 
+Training and Validation Loss (Left Plot) 
+ General Trend: The training loss shows fluctuations but overall decreases as the 
+epochs progress. The validation loss is more volatile but generally trends downward, 
+which is a good sign. 
+39 | Defect  Detection 
+c21binba 
+ Volatility: There are significant fluctuations in both training and validation loss. The 
+spikes in validation loss suggest that the model is struggling with some variations in 
+the validation data, which might indicate over fitting to some degree. 
+Training and Validation Accuracy (Right Plot) 
+ General Trend: The training accuracy is somewhat volatile but shows an increasing 
+trend over time, which indicates that the model is learning. The validation accuracy is 
+also fluctuating but generally high, around 0.92-0.96, suggesting good generalization. 
+ Validation Accuracy: The validation accuracy is consistently higher than the 
+training accuracy, which might suggest that the training data is more challenging or 
+that the model might be regularizing well but is over fitting slightly to the noise in the 
+training data. 
+Fig. 12 Confusion Matrix: VGG16 
+The confusion matrix shows VGG16 model performed on the test set, with the following 
+observations 
+ Crack: 73 images correctly classified. 7 images misclassified as "Seal overflow." 
+ No Defects: 80 images correctly classified. No misclassifications. 
+ Seal Overflow: 65 images correctly classified. 15 images misclassified as "Crack." 
+ Uneven Seal: 80 images correctly classified. No misclassifications. 
+40 | Defect  Detection 
+c21binba 
+Classification Report  
+Fig 13. Classification Report VGG16 
+The classification report provides more detailed metrics 
+Precision 
+ Indicates the accuracy of the positive predictions. 
+ The precision is highest (1.00) for "No Defects" and "Uneven Seal," meaning no false 
+positives. 
+ For "Seal Overflow," precision is also high at 0.90. 
+ "Crack" has a precision of 0.83, indicating some misclassification. 
+Recall 
+ Indicates the ability to find all positive instances. 
+ Recall is highest (1.00) for "No Defects" and "Uneven Seal." 
+ "Crack" has a high recall of 0.91. 
+ "Seal Overflow" has a recall of 0.81, indicating that some instances were missed (15 
+misclassified as "Crack"). 
+F1-Score 
+ The harmonic mean of precision and recall, giving a single score that balances both 
+metrics. 
+ The F1-score is high across all classes, with slight reductions for "Seal Overflow" (0.86) 
+and "Crack" (0.87). 
+Overall Model Performance 
+Accuracy: The model had an excellent 93% accuracy rate. 
+41 | Defect  Detection 
+c21binba 
+Macro Average: 0.93 is the macro average of recall, precision, and F1-score, suggesting 
+balanced performance in all classes. 
+Weighted Average: Considering the support (number of instances) for each class, the 
+weighted average comes in at 0.93 as well. 
+Misclassifications 
+The model struggles slightly with distinguishing between "Crack" and "Seal Overflow." This 
+could be due to visual similarities between these classes in the dataset. Additional data 
+augmentation or fine-tuning of the model might help in improving these specific areas. 
+Performance Evaluation 
+ The model was trained for 70 epochs, with the best model weights saved based on 
+validation loss. The final evaluation on the test set yielded the following results: 
+ Overall Accuracy: 93% 
+Confusion Matrix & Classification Report 
+ The confusion matrix indicated strong performance across all classes, with the majority 
+of images correctly classified. 
+ The classification report highlighted high precision, recall, and F1-scores across all 
+classes, with the model demonstrating particularly strong performance in identifying 
+"No Defects" and "Uneven Seal." 
+ The VGG16-based model proved effective in the classification task, achieving high 
+accuracy and strong generalization to the validation set. Through the use of pre-trained 
+weights to adapt to the particular dataset with minimal over fitting, transfer learning 
+made it possible to train the model efficiently. To further improve the model's 
+performance, future developments can involve focusing the data augmentation 
+strategies and looking into new regularization techniques. 
+Fig.14. VGG 16 Model: Test Data Predictions with Confidence Levels for Four 
+Classes  
+42 | Defect  Detection 
+c21binba 
+Predictions on Unseen Data 
+Fig:  17    VGG16 model predictions on unseen data 
+The model's performance on unseen data demonstrates its ability to accurately detect certain 
+defects, while also highlighting areas for improvement. In the case of crack detection, the 
+model performed well, identifying cracks with high confidence and accurately placing 
+bounding boxes around the defects. However, challenges arise when distinguishing between 
+images with no defects and those containing defects, as seen in the incorrect prediction of a 
+crack on a defect-free image. Although the confidence level was lower (0.52), the 
+misclassification indicates a potential issue with oversensitivity to certain visual features, 
+leading to false positives. The model performed well in detecting seal overflow and uneven seal 
+defects, with high confidence and precise bounding boxes, showcasing its strong capability in 
+these categories. Despite these successes, the misclassification in the "No Defects" category 
+suggests that further refinement is necessary, particularly in improving the model's robustness 
+in distinguishing defect-free images from those with subtle defects. This will enhance overall 
+model reliability in real-world applications.  
+43 | Defect  Detection 
+c21binba 
+6. Discussion 
+6.1 Theoretical Framework 
+ The application of Convolutional Neural Networks (CNNs) in defect detection is 
+grounded in established theories from machine learning and computer vision. CNNs are 
+ideal for image recognition due to their ability to learn and extract hierarchical features 
+from pixel data. This ability stems from deep learning principles, which enable CNNs to 
+automatically identify relevant features that are critical for detecting defects in 
+manufacturing processes. 
+ Choice of CNNs, particularly the use of transfer learning with pre-trained models like 
+VGG16, is based on the theory that pre-trained networks can significantly boost 
+performance on specific tasks, especially when defect data is limited. Transfer learning 
+leverages features learned from extensive datasets (such as ImageNet) and adapts them 
+for defect detection in Betaguard yellow seals. This approach not only shortens the 
+training time but also enhances accuracy by utilizing pre-existing patterns that are useful 
+across different visual contexts. 
+ Additionally, integrating batch normalization, dropout, and data augmentation 
+techniques into our network architecture is informed by theoretical insights into 
+regularization and model robustness. Batch normalization helps stabilize the training 
+process and accelerates convergence by normalizing the layer inputs. Dropout serves as 
+a regularization technique, reducing over fitting by randomly disabling neurons during 
+training. Data augmentation, meanwhile, artificially expands the training dataset by 
+creating variations of the original images, which helps improve the model's 
+generalization capabilities. 
+6.2 Methods, Implementation, and Results 
+ Techniques and Model Performance: The methodologies employed aimed to enhance the 
+effectiveness of CNNs in detecting defects in Betaguard yellow seals. A dataset developed 
+especially for this work, which included images of seals with a variety of defects such 
+cracks, seal overflow, and uneven application, was used to refine the VGG16 model, 
+which is known for its deep architecture and validated performance in image 
+classification. 
+ Data Preparation and Augmentation: Limited number of defect data, therefore 
+augmentation techniques like rotation, zooming, and horizontal flipping are applied. 
+These methods increased the dataset's size and variability, making the model more 
+resilient to different defect manifestations and perspectives. 
+ Model Training and Optimization: For the parameter updates, the model was trained 
+using categorical cross-entropy as the loss function and the Adam optimizer. To speed 
+up the training process and reduce internal covariate shift Batch normalization was 
+applied after each convolutional layer. Dropout layers were incorporated to mitigate over 
+fitting by randomly deactivating neurons during training sessions. 
+ The fine-tuned VGG16 model achieved an impressive accuracy of 93% on the test set, 
+44 | Defect  Detection 
+c21binba 
+demonstrating its ability to reliably detect defects in Betaguard yellow seals. But as the 
+confusion matrix showed, the model performed well in detecting some defects but poorly 
+in others, particularly those with subtle or identical looks. This shows that transfer 
+learning is beneficial, but it also underlines the need for a more varied dataset and 
+possible architectural changes for the model. 
+Several challenges were identified 
+ Environmental Variability: Differences in lighting and backgrounds can affect image 
+quality and detection accuracy. This can be mitigated by employing robust pre
+processing techniques like normalization and noise reduction. 
+ Background Noise: Unwanted objects or noise in the background can interfere with 
+defect detection. Effective cropping and filtering are essential to focus on the relevant 
+parts of the image. 
+ Obstruction Issues: Obstacles that block the camera’s view can lead to unusable images. 
+Developing algorithms to detect and exclude such images is crucial for maintaining data 
+quality. 
+ Lack of Defect Data: The scarcity of defective images is a significant challenge. By 
+increasing the dataset and utilizing pre-trained models, data augmentation techniques 
+like transfer learning help with resolving this problem. 
+Comparison with Previous Studies 
+ Our findings align with prior research that has utilized Convolutional Neural Networks 
+(CNNs) for defect detection. Particularly, Chen et al. (2021) conducted a study on surface 
+defect detection using deep learning techniques [8]. Their work highlighted similar 
+challenges in distinguishing subtle defects, particularly when using CNN-based 
+architectures. They achieved comparable accuracy levels but emphasized the necessity of 
+more diverse datasets to improve the model's ability to identify visually similar defects. 
+ In contrast, Lakshmanna et al. (2022) explored the use of the VGG16 model for detecting 
+defects in circuit manufacturing [15]. Their study reported slightly lower accuracy than 
+ours, which they attributed to a less diverse dataset and the absence of advanced 
+augmentation techniques. In our research, we implemented extensive data 
+augmentation methods, such as rotation, zooming, and horizontal flipping. These 
+techniques increased the size and variability of our dataset, making the model more 
+resilient to different defect manifestations and perspectives. This broader approach to 
+data augmentation likely accounts for the higher accuracy observed in our study, 
+underscoring the importance of dataset variability in enhancing CNN performance. 
+ Additionally, our implementation of transfer learning has shown a significant boost in 
+performance compared to studies that trained models from scratch. Miller et al. (2020) 
+discussed how models trained from scratch on limited datasets often underperform 
+compared to those utilizing transfer learning [16]. Their findings support our approach, 
+which leverages pre-trained networks to enhance performance, particularly when defect 
+data is limited. 
+45 | Defect  Detection 
+c21binba 
+ Our optimization strategies, including the use of categorical cross-entropy as the loss 
+function, the Adam optimizer for parameter updates, batch normalization, and dropout, 
+were also validated by similar studies. For example, Krizhevsky et al. (2017) 
+demonstrated the effectiveness of batch normalization and dropout in improving the 
+stability and accuracy of CNN models [20]. Our results are consistent with these findings, 
+showing that such optimization techniques are crucial for achieving high performance in 
+defect detection tasks. 
+ Overall, our research builds on and extends the findings of these previous studies, 
+demonstrating the importance of diverse datasets, advanced augmentation techniques, 
+and transfer learning in achieving superior defect detection performance. 
+6.3. Ethical and Societal Implications 
+6.3.1 Ethical Considerations 
+Ethical considerations were carefully followed throughout this research to ensure that all 
+standards were met and that the rights and privacy of everyone involved were respected. Key 
+points include: 
+ Data Privacy and Consent: All images used were provided by Volvo Cars with full 
+consent. The data was handled responsibly, with sensitive information being 
+anonymised where necessary to protect identities and confidential processes. 
+ Bias Mitigation: The dataset was created to represent all defect types fairly, 
+preventing the model from favouring any specific class. This helps ensure that the 
+defect detection works fairly across all categories. 
+ Transparency: The research is documented openly, detailing data sources, pre
+processing steps, and model configurations. This transparency makes it easier for 
+others to understand, reproduce, and evaluate the work. 
+ Impact on Employment: The introduction of automated systems has potential 
+effects on jobs. The research acknowledges this and suggests ways to use technology to 
+complement, not replace, human workers, supporting a balanced integration into 
+manufacturing. 
+ Environmental Responsibility: The research aims to reduce defects, which in turn 
+helps minimize waste and improve the use of resources. This contributes to 
+environmental sustainability goals. 
+6.3.2 Societal Implications 
+ Product Quality and Safety: Implementing advanced defect detection systems, 
+especially in the battery lid sealing process at Volvo Cars, is crucial for improving 
+product quality and safety. By catching defects early, the project helps ensure that 
+electric vehicle batteries are safer and more reliable, benefiting both consumers and 
+Volvo Cars' reputation. 
+ Environmental Impact: Using automated defect detection reduces waste and saves 
+46 | Defect  Detection 
+c21binba 
+resources by identifying problems before they lead to faulty products. This supports the 
+automotive industry's move towards more sustainable practices, particularly important 
+in the production of electric vehicles. 
+ Economic Implications: For Volvo Cars, improving defect detection can lower 
+production costs, reduce recalls, and decrease the need for rework, leading to better 
+overall efficiency. These benefits contribute to higher productivity and profitability, 
+helping the company stay competitive. The savings can also be reinvested in further 
+innovation, driving growth. 
+ Technological Advancement: This project represents progress in using machine 
+learning and computer vision in manufacturing. Successfully applying these 
+technologies enhances Volvo Cars’ production capabilities and contributes to 
+advancing industrial automation standards. 
+ Accessibility and Affordability: Although the initiative is centred toward large
+scale manufacturing, it also takes into account the wider implications of providing these 
+technology to smaller producers. More firms can gain from higher quality and 
+efficiency when the system is scalable and affordable. 
+By considering these ethical and societal factors, the research not only achieves its technical 
+goals but also contributes positively to society while maintaining ethical integrity. 
+47 | Defect  Detection 
+c21binba 
+7. Conclusion 
+This research has demonstrated the practicality of using Convolutional Neural Networks 
+(CNNs), particularly the VGG16 model, for the automated detection of defects in Betaguard 
+yellow seals. Through the effective use of transfer learning, data augmentation, and 
+regularization techniques, the model achieved an impressive 93% accuracy rate. This level of 
+performance indicates that CNNs hold significant promise in enhancing quality control 
+processes within the manufacturing sector, providing a scalable and efficient tool for 
+identifying defects. The acceptance of such technology could lead to notable developments in 
+both product safety and manufacturing efficiency. 
+The study discovered certain drawbacks, particularly the model's inability to discriminate 
+between defects that have similar visible characteristics. This implies that more investigation 
+and improvement are possible to increase the adaptability of the model. 
+7.1 Future Work 
+Moving forward, several avenues for further research are evident. One key area involves 
+expanding the dataset to include a broader range of images with higher resolution. Such 
+enhancements could address the model’s current challenges in identifying subtle and visually 
+similar defects. Collaborations with industry partners to gather more diverse and extensive 
+datasets would be particularly advantageous. 
+Furthermore, exploring more current and advanced CNN architectures such ResNet or 
+EfficientNet, may result in additional advancements in generalization and accuracy. To find if 
+Vision Transformer models may provide even more improvements in defect identification, it 
+might also be worthwhile to look into the possible advantages of employing them. These 
+models have shown success in other areas of computer vision. 
+Incorporating explainable AI methods is yet another exciting approach. By simplifying the 
+model's decision-making process, these approaches will promote satisfying regulatory 
+requirements and increase operational transparency. 
+Eventually, in order to ensure that these aspects are carefully regulated when this technology 
+is more extensively used, it will be essential to take into account the ethical implications, such 
+as the possible influence on jobs and data privacy concerns. 
+48 | Defect  Detection 
+c21binba 
+References 
+[1]. Yang, J. et al. (2020) Using deep learning to detect defects in manufacturing: A 
+comprehensive 
+survey 
+and 
+current 
+challenges, 
+MDPI. 
+https://www.mdpi.com/1996-1944/13/24/5755 (Accessed: 12 March 2024).  
+Available 
+at: 
+[2]. Detection of defects in automotive metal components through Computer Vision. Available 
+at:https://www.researchgate.net/publication/251863217_Detection_of_defects_in_automot
+ive_metal_components_through_computer_vision (Accessed: 23 March 2024).  
+[3]. 
+Image classification using Convolutional Neural Networks. Available at: 
+https://www.researchgate.net/publication/357974255_Image_Classification_using_Convol
+utional_Neural_Networks (Accessed: 24 March 2024).  
+[4]. Sheng, L.H. (2022a) VGGNet - convolutional network for classification and detection, 
+Medium.Availableat:https://medium.com/analytics-vidhya/vggnet-convolutional-network
+for-classification-and-detection-3543aaf61699 (Accessed: 12 April 2024).  
+[5]. Instrumental (2022) Machine vision vs. Manual Inspection vs. instrumental, 
+InstrumentalAvailableat:https://instrumental.com/resources/quality/machine-vision-vs
+manual-inspection-vs-instrumental/ (Accessed: 22 March 2024).  
+[6]. Overcoming the limitations of rule-based systems (no date) Secoda. Available at: 
+https://www.secoda.co/blog/overcoming-the-limitations-of-rule-based-systems (Accessed: 
+14 April 2024).  
+[7]. Chen, Y. et al. (2021) ‘Surface defect detection methods for Industrial Products: A Review’, 
+Applied Sciences, 11(16), p. 7657. doi:10.3390/app11167657. 
+Industrial 
+[8]. Chen, Y.; Ding, Y.; Zhao, F.; Zhang, E.; Wu, Z.; Shao, L. Surface Defect Detection Methods 
+for 
+Products: 
+A Review. Appl. Sci. 2021, 11, 7657. 
+https://doi.org/10.3390/app11167657 
+[9]. Patel, M. (2023) The Complete Guide to image pre-processing techniques in Python, 
+Medium. Available at: https://medium.com/@maahip1304/the-complete-guide-to-image
+preprocessing-techniques-in-python-dca30804550c (Accessed: 14 March 2024).  
+[10].Image thresholding OpenCV. Available at: https://docs.opencv.org/3.4/ d7/d4d 
+/tutorial_py_thresholding.html  (Accessed: 16 March 2024).  
+[11]. Haidar, L. (2021) Sobel vs. Canny Edge Detection Techniques: Step by step 
+implementation, 
+Medium.https://medium.com/@haidarlina4/sobel-vs-canny-edge
+detection-techniques-step-by-step-implementation-11ae6103a56a. 
+[12]. Chen, Haiyong & Cui, Yuejiao & Qiu, Ruina & Chen, Peng & Liu, Weipeng & Liu, Kun. 
+(2018). Image-Alignment Based Matching for Irregular Contour Defects Detection. IEEE 
+Access. PP. 1-1. 10.1109/ACCESS.2018.2879861.  
+49 | Defect  Detection 
+c21binba 
+[13]. Saberironaghi, A., Ren, J., & El-Gindy, M. (2023). Defect Detection Methods for 
+Industrial Products Using Deep Learning Techniques: A Review. Algorithms, 16(2), 95. 
+[14]. Huang, Hao & Zhu, Kai. (2024). Automotive Parts Defect Detection Based on YOLOv7. 
+Electronics.https://www.researchgate.net/publication/380439388_Automotive_Parts_Defe
+ct_Detection_Based_on_YOLOv7 
+[15]. Lakshmanna, Kuruva, Althubiti, Sara A.,  Alenezi, Fayadh, Shitharth S., K., Sangeetha, 
+Reddy, Chennareddy Vijay Simha (2022) Circuit Manufacturing Defect Detection Using 
+VGG16 Convolutional Neural Networks https://doi.org/10.1155/2022/1070405  
+[16]. Miller, T. C., Brown, M. J., Wilson, G. L., Evans, B. B., Kelly, R. S., Turner, S. T., Lewis, 
+F., Nelson, T. P., Cox, G., Harris, H. L., Martin, P., Gonzalez, W. L., Hughes, W., Carter, D., 
+Campbell, C., Baker, A. B., Flores, T., Gray, W. E., Green, G Lee, L. H. (2020). Using Deep 
+Learning to Detect Defects in Manufacturing: A Comprehensive Survey https://mdpi
+res.com/d_attachment/materials/materials-13-05755/article_deploy/materials-13-05755
+v2.pdf?version=1608266022   
+method, 
+[17]. Cruzada, A.J. (2021) Image segmentation part 1 thresholding, Otsu and HSV colour 
+space 
+Thinking 
+AI. 
+Available 
+https://abeljoshuacruzada.wixsite.com/thinkingai/post/image-segmentation-using-ostu
+and-hsv-color-space-method  (Accessed: 16 March 2024).  
+at: 
+[18]. Publications Visual Geometry Group - University of Oxford. Available at: 
+https://www.robots.ox.ac.uk/~vgg/publications/2015/Simonyan15/ (Accessed: 28 March 
+2024).  
+[19]. LeCun, Y., Bengio, Y. & Hinton, G. Deep learning. Nature 521, 436–444 (2015). 
+https://doi.org/10.1038/nature14539.  
+[20]. Krizhevsky, A., Sutskever, I. and Hinton, G.E. (2017) ‘ImageNet classification with deep 
+convolutional Neural Networks’, Communications of the ACM, 60(6), pp. 84–90. 
+doi:10.1145/3065386. 
+[21]. Volvo Cars."Volvo Cars’ New Battery Assembly Line in Ghent, Belgium, to Be 
+FullyOperationalThisYear."https://www.media.volvocars.com/global/en
+gb/media/pressreleases/245428/volvo-cars-new-battery-assembly-line-in-ghent-belgium
+to-be-fully-operational-this-year. 
+[22]. Keras: The high-level API for tensorflow:  Tensorflow Core TensorFlow. Available at: 
+https://www.tensorflow.org/guide/keras.  
+[23]. Volvo electric cars: EV range, batteries and Volvo Cars. Available at: 
+https://www.volvocars.com/intl/cars/electric-cars/ (Accessed: 12 March 2024). 
+[24]. Volvo car AB (publ.) publishes Annual and Sustainability Report 2022 Volvo Cars 
+GlobalMediaNewsroom.Availableat: 
+https://www.media.volvocars.com/global/en
+gb/media/pressreleases/309654/volvo-car-ab-publ-publishes-annual-and-sustainability
+report-2022 (Accessed: 23 March 2024). 
+50 | Defect  Detection 
+c21binba 
+[25].  Pittino, F. et al. (2020) ‘Automatic anomaly detection on in-production manufacturing 
+machines using Statistical Learning Methods’, Sensors, 20(8), p. 2344. 
+doi:10.3390/s20082344.  
+[26]. R. Usamentiaga, D. G. Lema, O. D. Pedrayes and D. F. Garcia, "Automated Surface Defect 
+Detection in Metals: A Comparative Review of Object Detection and Semantic Segmentation 
+Using Deep Learning," in IEEE Transactions on Industry Applications, vol. 58, no. 3, pp. 
+4203-4213, May-June 2022, doi: 10.1109/TIA.2022.3151560. 
+51 | Defect  Detection 

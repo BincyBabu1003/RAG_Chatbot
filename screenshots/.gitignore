@@ -1,0 +1,40 @@
+# Virtual Environment
+
+myenv/
+venv/
+
+# Python Cache
+
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment Variables
+
+.env
+
+# Vector Database
+
+vectorstore/
+
+# PDF Files
+
+data/
+
+# Streamlit Cache
+
+.streamlit/
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# VS Code
+
+.vscode/
+
+# OS Files
+
+.DS_Store
+Thumbs.db
