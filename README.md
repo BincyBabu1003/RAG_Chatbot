@@ -9,6 +9,9 @@ The system extracts text from PDF files, converts the text into embeddings using
 ## Live Demo
 [https://ragchatbot-1003.streamlit.app/]
 
+## GitHub Repository
+
+https://github.com/BincyBabu1003/RAG_Chatbot
 
 ## Features
 
