@@ -6,6 +6,10 @@ This project is a Retrieval-Augmented Generation (RAG) chatbot that allows users
 
 The system extracts text from PDF files, converts the text into embeddings using Hugging Face Sentence Transformers, stores the embeddings in a FAISS vector database, and retrieves the most relevant document chunks based on user queries.
 
+## Live Demo
+[https://ragchatbot-1003.streamlit.app/]
+
+
 ## Features
 
 * Upload PDF documents
